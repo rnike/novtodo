@@ -1,0 +1,460 @@
+//
+$bg-color: #e5e5e5;
+.demo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    user-select: none;
+    margin: 20px;
+    color: red;
+    right: 20px;
+    bottom: 20px;
+}
+.CatItem {
+    max-width: 500px;
+    height: 100px;
+    width: 90vw;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    background: rgba(255, 255, 255, 0.53);
+    border: 4px solid #c4c4c4;
+    border-radius: 10px;
+    user-select: none;
+    cursor: pointer;
+    .handle {
+        width: 50px;
+        height: 50px;
+    }
+    .content {
+        flex: 1;
+        justify-content: center;
+        display: flex;
+        text-decoration: none;
+        color: #686868;
+    }
+}
+.logout {
+    position: fixed;
+    right: 0;
+    top: 0;
+    user-select: none;
+    cursor: pointer;
+    padding: 20px;
+}
+.catlist {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    color: #8b8b8b;
+}
+.TaskGroup {
+    width: 311px;
+    height: 85vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    user-select: none;
+    position: relative;
+    .title {
+        width: 311px;
+        height: 86px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 0 -7px 0;
+        border-radius: 20px 20px 0px 0px;
+        .groupName {
+            width: 200px;
+            h2 {
+                margin: 1rem 50px;
+            }
+            .titleInput {
+                // width: 200px;
+                // margin: 0;
+                // font-size: 1.5rem;
+                // padding: 5px;
+                display: block;
+                font-size: 1.5em;
+                margin-block-start: 0.83em;
+                margin-block-end: 0.83em;
+                margin-inline-start: 0px;
+                margin-inline-end: 0px;
+                font-weight: bold;
+                width: 100%;
+            }
+        }
+        .iconPanel {
+            width: 100px;
+            display: flex;
+            .icon {
+                cursor: pointer;
+                flex: 1;
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+    .content {
+        flex: 1;
+        justify-content: center;
+        display: flex;
+    }
+    .TaskPanel {
+        flex: 1;
+        min-height: 100px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        // background: #efefef;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: none;
+    }
+    .TaskPanel::-webkit-scrollbar {
+        /* This is the magic bit for WebKit */
+        display: none;
+    }
+}
+.GroupPanel {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    overflow: auto;
+    color: #8b8b8b;
+}
+div[disabled] {
+    pointer-events: none;
+    opacity: 0.7;
+}
+.TaskItem {
+    position: relative;
+    overflow: hidden;
+    // &::before,
+    // &::after {
+    //     position: absolute;
+    //     left: 50%;
+    //     transform: translateX(-50%);
+    //     content: "";
+    //     display: block;
+    //     width: 8px;
+    //     height: 10px;
+    //     border-radius: 30%;
+    //     background: white;
+    //     box-shadow: -144px 0 0 white, -128px 0 0 white, -112px 0 0 white,
+    //         -96px 0 0 white, -80px 0 0 white, -64px 0 0 white, -48px 0 0 white,
+    //         -32px 0 0 white, -16px 0 0 white, 0 0 0 white, 144px 0 0 white,
+    //         128px 0 0 white, 112px 0 0 white, 96px 0 0 white, 80px 0 0 white,
+    //         64px 0 0 white, 48px 0 0 white, 32px 0 0 white, 16px 0 0 white;
+    // }
+
+    // &::before {
+    //     top: -5px;
+    // }
+
+    // &::after {
+    //     bottom: -5px;
+    // }
+    outline: none;
+    width: 311px;
+    margin: 0 0 -27px 0;
+    .s1 {
+        // background: white;
+        width: 311px;
+        height: 86px;
+        // border: 1px solid #e4e4e4;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        // align-items: center;
+
+        .handle {
+            height: 10px;
+        }
+        .content {
+            width: 80%;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            .checkBox {
+                box-sizing: border-box;
+                cursor: pointer;
+                width: 60px;
+                height: 60px;
+                .icon {
+                    position: absolute;
+                }
+            }
+            .text {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                cursor: pointer;
+                .react-datepicker-wrapper {
+                    position: absolute;
+                }
+            }
+            .detailBox {
+                cursor: pointer;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+    .s2 {
+        width: 311px;
+        height: 0;
+        box-sizing: border-box;
+        .detail {
+            word-wrap: break-word;
+            overflow: auto;
+            // width: 260px;
+            // max-height: 31/40 * 100%;
+            // margin: 20px 20px 25px 20px;
+        }
+    }
+}
+.bg{
+    position: absolute;
+    z-index: -1;
+}
+.TaskAdd {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 50px;
+    .modal {
+        background-color: white;
+        border-radius: 25px;
+        max-width: 500px;
+        margin: 0px auto;
+        padding: 10px 10px 15px 10px;
+        border: 5px solid #c4c4c4;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        .header {
+            .iconButton {
+                width: 30px;
+                height: 30px;
+                &.cross {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+            display: flex;
+            justify-content: space-between;
+            .datePanel {
+                display: flex;
+                .dateText {
+                    display: flex;
+                    align-items: center;
+                    font-size: 16px;
+                    font-family: sans-serif;
+                }
+            }
+        }
+        .body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            input {
+                padding: 10px;
+                font-size: 1.5rem;
+                border-radius: 5px;
+                border: 3px solid #c4c4c4;
+            }
+            textarea {
+                font-size: 1.5rem;
+                border-radius: 5px;
+                border: 3px solid #c4c4c4;
+                width: 100%;
+                flex: 1;
+                margin: 5px 0;
+                padding: 3px;
+                box-sizing: border-box;
+                resize: none;
+                height: 0;
+                opacity: 0;
+            }
+        }
+        .footer {
+            display: flex;
+            justify-content: center;
+            height: 60px;
+            align-items: center;
+            .iconButton {
+                margin: 50px;
+            }
+        }
+    }
+}
+.index {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.head {
+    height: 60px;
+    color: $bg-color;
+    background: #747474;
+    display: flex;
+    h1 {
+        margin-left: 30px;
+        user-select: none;
+    }
+    .titleInput {
+        font-size: 1.5rem;
+        margin-left: 30px;
+        background: #c1c1c1;
+        border: none;
+        border-radius: 8px;
+        margin: 5px 5px 5px 30px;
+        padding: 5px;
+    }
+}
+body {
+    background: $bg-color;
+    margin: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+html,
+body {
+    overflow: hidden;
+}
+.iconButton {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    user-select: none;
+    &.right {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    &.center {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 10px 0;
+    }
+    &.centerRight {
+        position: absolute;
+        top: 0;
+        left: 70%;
+        transform: translateX(-50%);
+        margin: 10px 0;
+    }
+    &.text {
+        width: auto;
+    }
+    img {
+        margin: auto;
+        width: 90%;
+        height: 90%;
+    }
+}
+
+.hiddenItem {
+    display: none;
+}
+
+@import "react-datepicker";
+//contextmenu
+.react-contextmenu {
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 5px solid rgb(196, 196, 196);
+    box-sizing: border-box;
+    border-radius: 10px;
+    color: #373a3c;
+    font-size: 16px;
+    margin: 2px 0 0;
+    min-width: 160px;
+    outline: none;
+    opacity: 0;
+    pointer-events: none;
+    text-align: left;
+    transition: opacity 250ms ease !important;
+}
+
+.react-contextmenu.react-contextmenu--visible {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 9999;
+}
+
+.react-contextmenu-item {
+    background: 0 0;
+    border: 0;
+    color: #747474;
+    cursor: pointer;
+    font-weight: 400;
+    border-radius: 5px;
+    line-height: 1.5;
+    padding: 3px 20px;
+    text-align: inherit;
+    white-space: nowrap;
+}
+
+.react-contextmenu-item.react-contextmenu-item--active,
+.react-contextmenu-item.react-contextmenu-item--selected {
+    background: #d3d3d3;
+    color: #747474;
+    text-decoration: none;
+}
+
+.react-contextmenu-item.react-contextmenu-item--disabled,
+.react-contextmenu-item.react-contextmenu-item--disabled:hover {
+    background-color: transparent;
+    border-color: rgba(0, 0, 0, 0.15);
+    color: #878a8c;
+}
+
+.react-contextmenu-item--divider {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    cursor: inherit;
+    margin-bottom: 3px;
+    padding: 2px 0;
+}
+.react-contextmenu-item--divider:hover {
+    background-color: transparent;
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+.react-contextmenu-item.react-contextmenu-submenu {
+    padding: 0;
+}
+
+.react-contextmenu-item.react-contextmenu-submenu > .react-contextmenu-item {
+}
+
+.react-contextmenu-item.react-contextmenu-submenu
+    > .react-contextmenu-item:after {
+    content: "▶";
+    display: inline-block;
+    position: absolute;
+    right: 7px;
+}
+.example-multiple-targets::after {
+    content: attr(data-count);
+    display: block;
+}
