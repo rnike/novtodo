@@ -9,7 +9,9 @@ export const axiosFetchCats = async () => {
     data = fakeCats();
   } else {
     try {
-      var result = await axios.post(`novtodo/getCats`);
+
+      var result = await axios.post(window.ip + `get_cats`);
+
       if (result.status === 200) {
         data = result.data;
       }
@@ -24,7 +26,7 @@ export const axiosFetchCatContent = async cat => {
   if (window.demo) {
   } else {
     try {
-      var result = await axios.post(`novtodo/readCat/${cat.id}`);
+      var result = await axios.post(window.ip + `readCat/${cat.id}`);
       if (result.status === 200) {
         data = result.data;
       }
@@ -90,7 +92,7 @@ export const axiosAddCat = async state => {
       .toJS();
   } else {
     try {
-      var result = await axios.post(`novtodo/add/cat`);
+      var result = await axios.post(window.ip + `add/cat`);
       if (result.status === 200) {
         const newCat = result.data;
         return Map(state.Cat.present)
@@ -115,12 +117,9 @@ export const axiosUpdateCatOrder = async newOrder => {
   if (window.demo) {
   } else {
     try {
-      var result = await axios.post(`novtodo/reorder/cat`, {
+      var result = await axios.post(window.ip + `reorder/cat`, {
         order: newOrder
       });
-      if (result.status === 200) {
-        console.log(result.data);
-      }
     } catch (e) {
       console.log(e);
     }
@@ -131,7 +130,7 @@ export const axiosUpdate = async (type, id, column, value) => {
   if (window.demo) {
   } else {
     try {
-      var result = await axios.post(`novtodo/update/${type}`, {
+      var result = await axios.post(window.ip + `update/${type}`, {
         id,
         column,
         value
@@ -147,7 +146,7 @@ export const axiosUpdateFull = async (type, value) => {
   if (window.demo) {
   } else {
     try {
-      var result = await axios.post(`novtodo/updateFull/${type}`, {
+      var result = await axios.post(window.ip + `updateFull/${type}`, {
         ...value
       });
       if (result.status === 200) {
@@ -161,7 +160,7 @@ export const axiosRemove = async (type, id) => {
   if (window.demo) {
   } else {
     try {
-      var result = await axios.post(`novtodo/remove/${type}`, { id });
+      var result = await axios.post(window.ip + `remove/${type}`, { id });
       if (result.status === 200) {
       }
     } catch (e) {
@@ -189,8 +188,8 @@ export const axiosAddGroup = async (cat, catID, state) => {
     return data;
   } else {
     try {
-      var result = await axios.post(`novtodo/add/group`, {
-        id: catID
+      var result = await axios.post(window.ip + `add/group`, {
+        cat_id: catID
       });
       if (result.status === 200) {
         const newCat = result.data;
@@ -209,7 +208,7 @@ export const axiosReorderGroup = async newOrders => {
   if (window.demo) {
   } else {
     try {
-      var result = await axios.post(`novtodo/reorder/group`, {
+      var result = await axios.post(window.ip + `reorder/group`, {
         order: newOrders
       });
       if (result.status === 200) {
@@ -244,16 +243,14 @@ export const axiosAddTask = async (state, cat, groupID, task) => {
       order: maxOrder
     };
   } else {
-    console.log(state, cat, groupID, task);
     try {
-      var result = await axios.post(`novtodo/add/task`, {
+      var result = await axios.post(window.ip + `add/task`, {
         catid: cat.id,
         groupid: parseInt(groupID),
         task: task
       });
       if (result.status === 200) {
         task = result.data;
-        console.log(task);
       }
     } catch (e) {
       console.log(e);
@@ -266,13 +263,10 @@ export const axiosReorderTask = async (orders, groups) => {
     console.log("update");
   } else {
     try {
-      var result = await axios.post(`novtodo/reorder/task`, {
+      var result = await axios.post(window.ip + `reorder/task`, {
         order: orders,
         groups: groups
       });
-      if (result.status === 200) {
-        console.log(result.data);
-      }
     } catch (e) {
       console.log(e);
     }

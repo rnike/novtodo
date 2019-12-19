@@ -8,8 +8,20 @@ import { Route, MemoryRouter } from "react-router-dom";
 import Listener from "./redux/listener";
 import * as serviceWorker from "./serviceWorker";
 import "./app.scss";
+import axios from 'axios'
 store.subscribe(() => Listener(store));
-window.demo = true;
+window.ip = 'http://127.0.0.1:3001/'; 
+const tkn =JSON.parse( localStorage.getItem('usertkn')); 
+console.log('tkn',tkn);
+
+if(tkn){
+  window.demo = false;
+
+  axios.defaults.headers = { 'Authorization': "bearer " + tkn.tkn };
+}else{
+  window.demo = true;
+  axios.defaults.headers = undefined;
+}
 ReactDOM.render(
   <Provider store={store}>
     <MemoryRouter>

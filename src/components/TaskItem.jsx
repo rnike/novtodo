@@ -43,6 +43,7 @@ export class TaskItem extends Component {
     });
   }
   delete() {
+    const { data, groupID,cat } = this.props;
     gsap
       .timeline()
       .to(this.item, 0.1, {
@@ -68,19 +69,20 @@ export class TaskItem extends Component {
           marginBottom: "0",
           marginTop: "0",
           height: 0
-        }
-        // onComplete: () => {
-        //     this.props.parent.aniControl = csAni.none;
-        //     // this.props.groupParent.aniControl = csAni.downToUp;
-        //     // this.props.groupParent.aniIndex = data.order;
-        //     this.props.TaskRemove(
-        //         {
-        //             groupID: groupID,
-        //             taskID: data.id
-        //         },
-        //         cat
-        //     );
-        // }
+        },
+        onComplete: (x,y,z,c) => {
+            // this.props.parent.aniControl = csAni.none;
+            // this.props.groupParent.aniControl = csAni.downToUp;
+            // this.props.groupParent.aniIndex = data.order;
+            z.TaskRemove(
+                {
+                    groupID: x,
+                    taskID: y.id
+                },
+                c
+            );
+        },
+        onCompleteParams:[groupID,data,this.props,cat]
       });
   }
   componentDidMount() {
@@ -96,23 +98,24 @@ export class TaskItem extends Component {
         strokeDashoffset: 60
       });
     }
-    gsap
-      .timeline()
-      .fromTo(
-        this.item,
-        1,
-        {
-          opacity: 0,
-          y: 100
-        },
-        {
-          opacity: 1,
-          y: 0,
-          delay: data.order * 0.05,
-          ease: "expo.out"
-        }
-      )
-      .set(this.item, { clearProps: "all" });
+    if (!data.dragDroped)
+      gsap
+        .timeline()
+        .fromTo(
+          this.item,
+          1,
+          {
+            opacity: 0,
+            y: 100
+          },
+          {
+            opacity: 1,
+            y: 0,
+            delay: data.order * 0.05,
+            ease: "expo.out"
+          }
+        )
+        .set(this.item, { clearProps: "all" });
   }
   onClicked() {
     const { data, groupID, cat } = this.props;
@@ -151,8 +154,8 @@ export class TaskItem extends Component {
             height < minHeight
               ? minHeight
               : height > maxHeight
-              ? maxHeight
-              : height
+                ? maxHeight
+                : height
         });
         gsap.fromTo(
           this.detailText,
@@ -283,7 +286,7 @@ export class TaskItem extends Component {
     const { provided, data } = this.props;
     const { isTextEdit, taskDate } = this.state;
     return (
-      <ContextMenuTrigger id="tc" collect={() => ({ taskItem: this })}>
+      <ContextMenuTrigger holdToDisplay={1500} id="tc" collect={() => ({ taskItem: this })}>
         <div
           className="TaskItem"
           ref={x => {
@@ -337,9 +340,9 @@ export class TaskItem extends Component {
                 <div onDoubleClick={() => this._calendar.setOpen(true)}>
                   {isDate(data.taskDate)
                     ? data.taskDate.getMonth() +
-                      1 +
-                      "/" +
-                      data.taskDate.getDate()
+                    1 +
+                    "/" +
+                    data.taskDate.getDate()
                     : ""}
                 </div>
                 {isTextEdit ? (
@@ -357,10 +360,10 @@ export class TaskItem extends Component {
                     onKeyDown={this.textKeyDown}
                   />
                 ) : (
-                  <div onDoubleClick={this.textDoubleClick}>
-                    {data.taskText}
-                  </div>
-                )}
+                    <div onDoubleClick={this.textDoubleClick}>
+                      {data.taskText}
+                    </div>
+                  )}
               </div>
               {data.detail !== "" && (
                 <div

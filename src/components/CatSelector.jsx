@@ -13,7 +13,7 @@ import { bindActionCreators } from "redux";
 import gsap from "gsap";
 import { ReactComponent as Add } from "../svg/Add.svg";
 import { ContextMenu, MenuItem } from "react-contextmenu";
-// import Login, { axiosLogout } from "../../../Utils/js/Login";
+import Login, { axiosLogout } from "../login/Login";
 export class CatSelector extends Component {
   constructor(props) {
     super(props);
@@ -26,6 +26,7 @@ export class CatSelector extends Component {
     this.timeLine = gsap.timeline();
     this.aniControl = csAni.upToDown;
     this.aniIndex = 0;
+
   }
 
   AddClicked() {
@@ -99,6 +100,7 @@ export class CatSelector extends Component {
   }
   render() {
     const { isLoading, CatData, isBusy } = this.props;
+    console.log('CatData',CatData);
 
     // if (isLoading) {
     //     return <div>loading</div>;
@@ -115,11 +117,11 @@ export class CatSelector extends Component {
           <div className="iconButton center" onClick={this.AddClicked}>
             <Add />
           </div>
-          {/* {!window.demo && (
+          { !window.demo && (
                         <div className="logout" onClick={axiosLogout}>
                             Logout
                         </div>
-                    )} */}
+                    )}
         </nav>
         <DragDropContext
           onBeforeDragStart={this.onDragStart}
@@ -136,10 +138,14 @@ export class CatSelector extends Component {
                 // {...provided.droppableProps}
                 // style={getListStyle(snapshot.isDraggingOver)}
               >
-                {Map(CatData)
+                {
+                
+                Map(CatData)
                   .sortBy(x => x.order)
                   .valueSeq()
                   .map((cat, i) => {
+                    console.log(cat);
+                    
                     const keyS = cat.id.toString();
                     return (
                       <Draggable key={keyS} draggableId={keyS} index={i}>
@@ -164,10 +170,10 @@ export class CatSelector extends Component {
         <ContextMenu id="cc">
           <MenuItem onClick={this.deleteClick}>Delete</MenuItem>
         </ContextMenu>
-        {window.demo && (
+        { window.demo && (
           <div className="demo">
             <h2>This is a demo page.</h2>
-            {/* <Login /> */}
+            <Login />
           </div>
         )}
       </div>

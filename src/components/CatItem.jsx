@@ -79,7 +79,7 @@ export class CatItem extends Component {
   render() {
     const { provided, data } = this.props;
     return (
-      <ContextMenuTrigger id="cc" collect={() => ({ catItem: this })}>
+      <ContextMenuTrigger holdToDisplay={1500} id="cc" collect={() => ({ catItem: this })}>
         <div
           className="CatItem"
           ref={e => {

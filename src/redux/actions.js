@@ -101,8 +101,9 @@ export const Busy = b => ({
 });
 //ui
 export const CLOSE_CAT = "CLOSE_CAT";
-export const CloseCat = () => ({
-  type: CLOSE_CAT
+export const CloseCat = (id) => ({
+  type: CLOSE_CAT,
+  id
 });
 export const HIDE_CHECKED = "HIDE_CHECKED";
 export const HideCheckedToggle = () => ({
@@ -253,12 +254,9 @@ export function CallGroupRemove(groupID, cat) {
     dispatch(Busy(true));
     const state = getState().Cat.present;
     const catID = cat.id.toString();
-    var removedTasks = Map(state).getIn([
-      catID,
-      "groups",
-      groupID.toString(),
-      "tasks"
-    ]);
+
+    var removedTasks = Map(state[catID].tasks).filter(x => x.group_id == groupID).map(x => x.id);
+
     const nextState = Map(state)
       .update(catID, x => ({
         ...x,
@@ -276,26 +274,27 @@ export function CallGroupRemove(groupID, cat) {
 export function CallReorderTask(result, cat) {
   return async (dispatch, getState) => {
     dispatch(Busy(true));
-
     const state = getState().Cat.present;
     const catID = cat.id.toString();
     const { source, destination, draggableId } = result;
+    console.log(result);
+
     const sourceDropId = parseInt(source.droppableId);
     const destDropId = parseInt(destination.droppableId);
     let nextState;
     let newOrder = [];
     let groupIds = [];
     if (source.droppableId === destination.droppableId) {
-      var m = 
-      Map(state[catID].tasks)
-        .filter(x => x.group_id === sourceDropId)
-        .sortBy(x => x.order)
-        .keySeq(); 
+      var m =
+        Map(state[catID].tasks)
+          .filter(x => x.group_id === sourceDropId)
+          .sortBy(x => x.order)
+          .keySeq();
       var newGroups = reorder(
-       m,
+        m,
         source.index,
         destination.index
-      ); 
+      );
       let order = [];
       nextState = Map(state[catID].tasks)
         .map(x => {
@@ -307,8 +306,8 @@ export function CallReorderTask(result, cat) {
         })
         .toJS();
       newOrder.push(order);
-      groupIds.push(sourceDropId); 
-      
+      groupIds.push(sourceDropId);
+
     } else {
       const sourceGroup = Map(state[catID].tasks)
         .filter(x => x.group_id === sourceDropId)
@@ -318,13 +317,13 @@ export function CallReorderTask(result, cat) {
         .filter(x => x.group_id === destDropId)
         .sortBy(x => x.order)
         .keySeq();
-
+      const dragItemID = draggableId.replace("t", "")
       var l = reorderMax(
         sourceGroup,
         destGroup,
         source.index,
         destination.index,
-        draggableId.replace("t", "")
+        dragItemID
       );
       let orderS = [];
       let orderD = [];
@@ -332,8 +331,12 @@ export function CallReorderTask(result, cat) {
       groupIds.push(destDropId);
       nextState = Map(state[catID].tasks)
         .setIn(
-          [draggableId.replace("t", ""), "group_id"],
-         destDropId
+          [dragItemID, "group_id"],
+          destDropId
+        )
+        .setIn(
+          [dragItemID, "dragDroped"],
+          true
         )
         .map(x => {
           if (x.group_id === sourceDropId) {
@@ -346,12 +349,14 @@ export function CallReorderTask(result, cat) {
           return x;
         })
         .toJS();
+        console.log("orderS", orderS);
+        console.log("orderD", orderD);
       newOrder.push(orderS);
       newOrder.push(orderD);
-      console.log("nextState", nextState);
+      console.log("newOrder", newOrder);
     }
-    console.log(newOrder,groupIds);
-    
+    console.log(newOrder, groupIds);
+
     dispatch(
       Update({
         ...Map(state)

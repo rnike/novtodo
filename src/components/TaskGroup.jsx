@@ -44,6 +44,7 @@ export class TaskGroup extends Component {
     this.ComfirmTitleEdit();
   }
   componentDidMount() {
+    const {data} =this.props
     gsap
       .timeline()
       .fromTo(
@@ -110,10 +111,10 @@ export class TaskGroup extends Component {
       y: 100,
       x: 50,
       onComplete: () => {
-        this.props.parent.aniControl = csAni.rightToLeft;
-        this.props.parent.aniIndex = data.order;
+        // this.props.parent.aniControl = csAni.rightToLeft;
+        // this.props.parent.aniIndex = data.order;
         this.props.CallGroupRemove(data.id, cat);
-      }
+      } 
     });
   }
   render() {

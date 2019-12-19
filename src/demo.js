@@ -9,22 +9,19 @@ export const fakeCats = () => ({
                 id: 1,
                 cat_id: 1,
                 order: 0,
-                groupName: "URGENT",
-                tasks: [1, 2, 3]
+                groupName: "URGENT"
             },
             "2": {
                 id: 2,
                 cat_id: 1,
                 order: 1,
-                groupName: "NORMAL",
-                tasks: [4, 5]
+                groupName: "NORMAL"
             },
             "3": {
                 id: 3,
                 cat_id: 1,
                 order: 2,
-                groupName: "NOTE",
-                tasks: [6, 7]
+                groupName: "NOTE"
             }
         },
         tasks: {
@@ -110,15 +107,13 @@ export const fakeCats = () => ({
                 id: 4,
                 cat_id: 2,
                 order: 0,
-                groupName: "NEED",
-                tasks: [8, 9]
+                groupName: "NEED"
             },
             "5": {
                 id: 5,
                 cat_id: 2,
                 order: 1,
-                groupName: "WANT",
-                tasks: [10, 11]
+                groupName: "WANT"
             }
         },
         tasks: {
@@ -174,22 +169,19 @@ export const fakeCats = () => ({
                 id: 6,
                 cat_id: 3,
                 order: 0,
-                groupName: "WEB",
-                tasks: [12, 13, 14, 15, 16, 17]
+                groupName: "WEB"
             },
             "7": {
                 id: 7,
                 cat_id: 3,
                 order: 1,
-                groupName: "CODE",
-                tasks: [18, 19]
+                groupName: "CODE"
             },
             "8": {
                 id: 8,
                 cat_id: 3,
                 order: 2,
-                groupName: "OS",
-                tasks: [20]
+                groupName: "OS"
             }
         },
         tasks: {

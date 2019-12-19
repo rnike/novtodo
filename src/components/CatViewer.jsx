@@ -20,12 +20,12 @@ import TaskAdd from "./TaskAdd";
 import { ContextMenu, MenuItem } from "react-contextmenu";
 import { NavLink } from "react-router-dom";
 import { csAni } from "../gsapControl";
+import Login, { axiosLogout } from "../login/Login";
 
 export class CatViewer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDraging: false,
       titleEditing: false,
       GroupAdded: false,
       editText: ""
@@ -47,6 +47,9 @@ export class CatViewer extends Component {
     this.onMouseMove = this.onMouseMove.bind(this);
     this.aniControl = csAni.rightToLeft;
     this.aniIndex = 0;
+    // this.tkn = localStorage.getItem('usertkn');
+    // console.log('tkn', this.tkn);
+
   }
   init() {
   }
@@ -55,7 +58,7 @@ export class CatViewer extends Component {
     this.setState({ GroupAdded: true });
     this.props.AddNewGroup(this.props.cat.id);
   }
-  componentDidMount() {}
+  componentDidMount() { }
   componentDidUpdate(prevProps, prevState) {
     if (this.state.titleEditing) {
       this.titleInput.focus();
@@ -78,7 +81,7 @@ export class CatViewer extends Component {
     }
     //    console.log(prevProps.isLoading, this.props.isLoading);
     //  console.log("if", prevProps.isLoading !== this.props.isLoading);
- 
+
   }
   onMouseMove(e) {
     // e.preventDefault();
@@ -113,12 +116,10 @@ export class CatViewer extends Component {
   onDragStart(result) {
     this.aniControl = csAni.none;
     if (result.type !== "group") {
-      this.setState({ isDraging: true });
     } else {
     }
   }
   onDragEnd(result) {
-    this.setState({ isDraging: false });
     const { source, destination } = result;
     const { cat } = this.props;
     if (result.type === "group") {
@@ -136,7 +137,7 @@ export class CatViewer extends Component {
         // console.log("dropped outside the list or same");
         return;
       }
-      
+
       this.props.ReorderTask(result, cat);
     }
   }
@@ -153,8 +154,9 @@ export class CatViewer extends Component {
   }
   MenuClicked() {
     console.log(this.props);
+    const { cat } = this.props;
 
-    this.props.CloseCat();
+    this.props.CloseCat(cat.id);
     this.props.clearHistory();
   }
   render() {
@@ -208,8 +210,8 @@ export class CatViewer extends Component {
               onBlur={this.ComfirmTitleEdit}
             />
           ) : (
-            <h1 onDoubleClick={this.StartEdit}>{cat && cat.catname}</h1>
-          )}
+              <h1 onDoubleClick={this.StartEdit}>{cat && cat.catname}</h1>
+            )}
           {!this.state.titleEditing && (
             <div className="iconButton center" onClick={this.AddClicked}>
               <Add />
@@ -222,11 +224,11 @@ export class CatViewer extends Component {
           >
             {hideChecked ? "ShowChecked" : "HideChecked"}
           </div>
-          {/* {!window.demo && (
-                        <div className="logout" onClick={axiosLogout}>
-                            Logout
-                        </div>
-                    )} */}
+          {!window.demo && (
+            <div className="logout" onClick={axiosLogout}>
+              Logout
+        </div>
+          )}
         </nav>
         <DragDropContext
           onBeforeDragStart={this.onDragStart}
@@ -240,8 +242,8 @@ export class CatViewer extends Component {
                   this.panel = x;
                   return provided.innerRef(x);
                 }}
-                // {...provided.droppableProps}
-                // style={getListStyle(snapshot.isDraggingOver)}
+              // {...provided.droppableProps}
+              // style={getListStyle(snapshot.isDraggingOver)}
               >
                 {cat &&
                   Map(cat.groups)
@@ -290,7 +292,7 @@ export class CatViewer extends Component {
         {window.demo && (
           <div className="demo">
             <h2>This is a demo page.</h2>
-            {/* <Login /> */}
+            <Login />
           </div>
         )}
       </div>

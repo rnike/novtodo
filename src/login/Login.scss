@@ -1,0 +1,108 @@
+.Login {
+    .LoginPanel {
+        pointer-events: none;
+        position: fixed;
+        z-index: 1000;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        .ThePanel {
+            border-radius: 20px;
+            width: 400px;
+            height: 380px;
+            background: #fafafa;
+            z-index: 1500;
+            margin: 20px;
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%) translateY(-500px);
+            border: 3px #7a7a7a solid;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            &.reg{
+                height: 460px;
+            }
+            // justify-content: center;
+            h1 {
+                text-align: center;
+                user-select: none;
+            }
+            input[type="text"],
+            input[type="password"] {
+                margin: 10px;
+                font-size: 20px;
+                border: 2px #dadada solid;
+                border-radius: 10px;
+                outline: none;
+                padding: 10px;
+                width: 300px;
+                &::placeholder {
+                    color: #ececec;
+                }
+                &:focus {
+                    border: 2px #7a7a7a solid;
+                }
+            }
+            .CheckDiv {
+                background: #fafafa;
+                display: inline-flex;
+                user-select: none;
+                cursor: pointer;
+                color: #dadada;
+                margin: 10px;
+                padding: 5px;
+                border-radius: 15px;
+            }
+            .ButtonDiv {
+                display: flex;
+                flex-direction: row;
+                margin: 10px;
+            }
+            button {
+                cursor: pointer;
+                user-select: none;
+                outline: none;
+                margin: 10px;
+                width: 100px;
+                font-size: 17px;
+                border: none;
+                padding: 10px;
+                border-radius: 10px;
+                font-weight: bold;
+                &.confirm {
+                    background: #e7edff;
+                    color: #655993;
+                    &:focus {
+                        border: 2px #655993 solid;
+                        padding: 8px;
+                    }
+                }
+                &.register {
+                    background: #ffc3be;
+                    color: #be2519;
+                    &:focus {
+                        border: 2px #be2519 solid;
+                        padding: 8px;
+                    }
+                }
+            }
+        }
+        &[disabled]{
+            pointer-events: none;
+        }
+    }
+    .OpenButton {
+        z-index: 2000;
+        padding: 10px;
+        border-radius: 30px;
+        cursor: pointer;
+    }
+    position: relative;
+    color: black;
+
+    .error{
+        color: red;
+    }
+}
