@@ -255,7 +255,7 @@ export function CallGroupRemove(groupID, cat) {
     const state = getState().Cat.present;
     const catID = cat.id.toString();
 
-    var removedTasks = Map(state[catID].tasks).filter(x => x.group_id == groupID).map(x => x.id);
+    var removedTasks = Map(state[catID].tasks).filter(x => x.group_id === groupID).map(x => x.id);
 
     const nextState = Map(state)
       .update(catID, x => ({

@@ -327,7 +327,7 @@ export default class Login extends Component {
                     onClick={e => {
                         if (loading) return;
                         if (this.busy) return;
-                        if (e.target == this.theBackPanel) {
+                        if (e.target === this.theBackPanel) {
                             this.busy = true;
                             this.open(false);
                         }
