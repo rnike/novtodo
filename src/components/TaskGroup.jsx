@@ -134,7 +134,7 @@ export class TaskGroup extends Component {
         >
           <GroupHead className="bg" />
           <div className="title">
-            {/* <div className="iconPanel"></div> */}
+            <div style={{width:20,height:10}}></div>  
             <div
               onDoubleClick={this.editClick}
               className="groupName"
@@ -142,9 +142,7 @@ export class TaskGroup extends Component {
             >
               {this.state.titleEditing ? (
                 <input
-                  ref={input => {
-                    this.titleInput = input;
-                  }}
+                  ref={input => {  this.titleInput = input;  }}
                   className="titleInput"
                   type="text"
                   value={this.state.editText}
@@ -153,14 +151,15 @@ export class TaskGroup extends Component {
                   onBlur={this.titleBlur}
                 />
               ) : (
-                <h2>{data.groupName}</h2>
+                <h3>{data.groupName}</h3>
               )}
             </div>
             <div className="iconPanel">
-              <Add
+              <Add 
                 onClick={this.addClick}
                 viewBox="0,0,30,30"
                 className="icon"
+                fill='#764a00'
               />
             </div>
           </div>

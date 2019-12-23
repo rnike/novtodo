@@ -17,6 +17,7 @@ import DatePicker, { ReactDatePickerProps } from "react-datepicker";
 export class TaskItem extends Component {
   constructor(props) {
     super(props);
+    this.face = {};
     const { data } = this.props;
     this.state = {
       isOpened: false,
@@ -33,6 +34,58 @@ export class TaskItem extends Component {
     this.saveDateChanged = this.saveDateChanged.bind(this);
     this.textKeyDown = this.textKeyDown.bind(this);
     this.textBlur = this.textBlur.bind(this);
+    this.faceOpen = this.faceOpen.bind(this);
+  }
+  faceOpen(open){
+    const {ld1,ld2,ld3,rd1,rd2,rd3,lu,ru,lc,rc,l1,l2,l3,r1,r2,r3} = this.face
+    const o= [ ld1, ld2, ld3, rd1, rd2, rd3, lu, ru, lc, rc];
+    const c = [ l1, l2 ,l3, r1, r2, r3]
+    if( open){
+      gsap.timeline().add('start') 
+      .to(this.faceIcon, {
+      opacity:1
+     }) .set(c, {
+        strokeDasharray: 60,
+        strokeDashoffset: 60 
+      },'start').to(o, 0.3, {
+        strokeDasharray: 60,
+        strokeDashoffset: 0,
+        ease:'none'
+      },'start').to([  lc, rc], {
+        opacity:open?1:0
+       },'start'); 
+    }else{ 
+      gsap.timeline().add('start')
+      .to(this.faceIcon, {
+      opacity:.5
+     }) .to([  lc, rc], {
+        opacity:open?1:0
+       },'start').set(c,   {
+        strokeDasharray: 60,
+        strokeDashoffset: 0 
+      },'start').to(o, 0.3, {
+        strokeDasharray: 60,
+        strokeDashoffset: 60,
+        ease:'none'
+      },'start'); 
+    } 
+  }
+  faceSet(open){  
+    const {ld1,ld2,ld3,rd1,rd2,rd3,lu,ru,lc,rc,l1,l2,l3,r1,r2,r3} = this.face
+    gsap.set(
+       open?[ l1, l2, l3, r1, r2, r3]:
+      [ ld1, ld2, ld3, rd1, rd2 , rd3, lu, ru, lc, rc]
+      , {
+      strokeDasharray: 60,
+      strokeDashoffset: 60
+    });
+    gsap.set([  lc, rc], {
+      opacity: open?1:0
+     }); 
+     gsap.set(this.faceIcon, {
+      opacity: open?1:.5
+     }); 
+   
   }
   edit() {
     const { data, groupID } = this.props;
@@ -43,7 +96,7 @@ export class TaskItem extends Component {
     });
   }
   delete() {
-    const { data, groupID,cat } = this.props;
+    const { data, groupID, cat } = this.props;
     gsap
       .timeline()
       .to(this.item, 0.1, {
@@ -70,34 +123,25 @@ export class TaskItem extends Component {
           marginTop: "0",
           height: 0
         },
-        onComplete: (x,y,z,c) => {
-            // this.props.parent.aniControl = csAni.none;
-            // this.props.groupParent.aniControl = csAni.downToUp;
-            // this.props.groupParent.aniIndex = data.order;
-            z.TaskRemove(
-                {
-                    groupID: x,
-                    taskID: y.id
-                },
-                c
-            );
+        onComplete: (x, y, z, c) => {
+          // this.props.parent.aniControl = csAni.none;
+          // this.props.groupParent.aniControl = csAni.downToUp;
+          // this.props.groupParent.aniIndex = data.order;
+          z.TaskRemove(
+            {
+              groupID: x,
+              taskID: y.id
+            },
+            c
+          );
         },
-        onCompleteParams:[groupID,data,this.props,cat]
+        onCompleteParams: [groupID, data, this.props, cat]
       });
   }
   componentDidMount() {
-    const { data } = this.props;
-    if (data.isCompleted) {
-      gsap.set(this.check, {
-        strokeDasharray: 60,
-        strokeDashoffset: 0
-      });
-    } else {
-      gsap.set(this.check, {
-        strokeDasharray: 60,
-        strokeDashoffset: 60
-      });
-    }
+    const { data } = this.props; 
+    this.faceWiggle = gsap.timeline({repeat:-1}) .to(this.faceIcon,0.3,{y:-5}).to(this.faceIcon,0.3,{y:0}).pause();
+    this.faceSet(!data.isCompleted); 
     if (!data.dragDroped)
       gsap
         .timeline()
@@ -119,6 +163,7 @@ export class TaskItem extends Component {
   }
   onClicked() {
     const { data, groupID, cat } = this.props;
+    this.faceWiggle.pause(0);
     this.props.TaskCheck(
       {
         ...data,
@@ -132,17 +177,7 @@ export class TaskItem extends Component {
   componentDidUpdate(preProps, preState) {
     const { data } = this.props;
     if (preProps.data.isCompleted !== this.props.data.isCompleted) {
-      if (this.props.data.isCompleted) {
-        gsap.to(this.check, 0.3, {
-          strokeDasharray: 60,
-          strokeDashoffset: 0
-        });
-      } else {
-        gsap.to(this.check, 0.3, {
-          strokeDasharray: 60,
-          strokeDashoffset: 60
-        });
-      }
+      this.faceOpen(!data.isCompleted); 
     }
     if (preState.isOpened !== this.state.isOpened) {
       if (this.state.isOpened) {
@@ -154,8 +189,8 @@ export class TaskItem extends Component {
             height < minHeight
               ? minHeight
               : height > maxHeight
-                ? maxHeight
-                : height
+              ? maxHeight
+              : height
         });
         gsap.fromTo(
           this.detailText,
@@ -205,31 +240,6 @@ export class TaskItem extends Component {
     if (data.taskText !== preProps.data.taskText) {
       this.setState({ taskText: data.taskText });
     }
-    // if (
-    //     this.props.groupParent.aniControl !== csAni.none &&
-    //     this.props.groupParent.aniIndex <= data.order
-    // ) {
-    //     // gsap.set(this.item,{
-    //     //     y:121
-    //     // })
-    //     gsap.timeline()
-    //         .fromTo(
-    //             this.item,
-    //             1,
-    //             {
-    //                 y: 121
-    //             },
-    //             {
-    //                 y: 0,
-    //                 delay: data.order * 0.05,
-    //                 ease: "expo.out",
-    //                 onComplete: () => {
-    //                     this.props.groupParent.aniControl = csAni.none;
-    //                 }
-    //             }
-    //         )
-    //         .set(this.item, { clearProps: "all" });
-    // }
   }
   detailClick() {
     this.setState(x => ({
@@ -286,7 +296,11 @@ export class TaskItem extends Component {
     const { provided, data } = this.props;
     const { isTextEdit, taskDate } = this.state;
     return (
-      <ContextMenuTrigger holdToDisplay={1500} id="tc" collect={() => ({ taskItem: this })}>
+      <ContextMenuTrigger
+        holdToDisplay={1500}
+        id="tc"
+        collect={() => ({ taskItem: this })}
+      >
         <div
           className="TaskItem"
           ref={x => {
@@ -298,54 +312,38 @@ export class TaskItem extends Component {
         >
           <TaskBg className="bg" />
           <div className="s1">
-            {/* <div className="handle" >
-                            <TaskHandle />
-                        </div> */}
             <div className="content">
-              <div onClick={this.onClicked} className="checkBox">
-                <svg
-                  width="60"
-                  height="60"
-                  viewBox="0 0 60 60"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    x="20"
-                    y="20"
-                    width="20"
-                    height="19.4806"
-                    fill="white"
-                    stroke="#B3B3B3"
-                  />
-                  <path
-                    ref={x => {
-                      this.check = x;
-                    }}
-                    d="M18 25L30.5 34.5L49 2"
-                    stroke="#FFE296"
-                    strokeWidth="5"
-                  />
-                </svg>
+              <div onClick={this.onClicked} onMouseEnter={()=>{
+                if(!data.isCompleted)
+                this.faceWiggle.restart();
+              }} onMouseLeave={()=>{ 
+                this.faceWiggle.pause(0);
+              }} className="checkBox">
+              <svg className="icon" ref={(x)=>this.faceIcon = x} width="35" height="32" viewBox="0 0 45 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path ref={x => { this.face.l1 = x; }} strokeDasharray='60' strokeDashoffset='0'  d="M5.8842 16.9021L7.65271 13.0938" stroke="#764A00" strokeWidth="2"/>
+<path ref={x => { this.face.l2 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M11.5159 17.3885L11.3334 14.2314" stroke="#764A00" strokeWidth="2"/>
+<path ref={x => { this.face.l3 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M16.774 15.6965L15.1841 12.9629" stroke="#764A00" strokeWidth="2"/>
+<path ref={x => { this.face.r1 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M32.3781 16.9021L34.1466 13.0938" stroke="#764A00" strokeWidth="2"/>
+<path ref={x => { this.face.r2 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M38.0098 17.3885L37.8273 14.2314" stroke="#764A00" strokeWidth="2"/>
+<path ref={x => { this.face.r3 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M43.2679 15.6965L41.678 12.9629" stroke="#764A00" strokeWidth="2"/>
+<path ref={x => { this.face.ld = x; }} strokeDasharray='60' strokeDashoffset='0' d="M3 9C3 9.5 4.74845 14 10.5 14C16.2516 14 18 9.5 18 9" stroke="#764A00" strokeWidth="2"/>
+<path ref={x => { this.face.rd = x; }} strokeDasharray='60' strokeDashoffset='0' d="M29 9C29 9.5 30.7484 14 36.5 14C42.2516 14 44 9.5 44 9" stroke="#764A00" strokeWidth="2"/>
+<path  d="M21.5923 15.3916L25.9019 16.7529L23.5404 20.6465" stroke="#764A00" strokeWidth="2"/>
+<path d="M16.3713 23.8848C17.8707 24.9397 21.8638 28.4841 28.3798 27.6469" stroke="#764A00" strokeWidth="2"/>
+<path ref={x => { this.face.lu = x; }} strokeDasharray='60' strokeDashoffset='0' d="M18 9.00003C18 8 16.2516 3.99999 10.5 3.99999C4.74845 3.99999 3 8 3 9.00003" stroke="#764A00" strokeWidth="2"/>
+<path ref={x => { this.face.ru = x; }} strokeDasharray='60' strokeDashoffset='0' d="M44 9.00003C44 8 42.2516 3.99999 36.5 3.99999C30.7484 3.99999 29 8 29 9.00003" stroke="#764A00" strokeWidth="2"/>
+<path ref={x => { this.face.ld1 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M4.05762 7.36328L1 4.48535" stroke="#764A00" strokeWidth="2"/>
+<path ref={x => { this.face.ld2 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M6.29949 4.86709L4.81799 2.07324" stroke="#764A00" strokeWidth="2"/>
+<path ref={x => { this.face.ld3 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M9.50473 4.06897L8.74194 1" stroke="#764A00" strokeWidth="2"/> 
+<ellipse ref={x => { this.face.lc = x; }} cx="10.0593" cy="9.18936" rx="2.05935" ry="2.18936" fill="#764A00"/>
+<ellipse ref={x => { this.face.rc = x; }} cx="36.0593" cy="9.18936" rx="2.05935" ry="2.18936" fill="#764A00"/> 
+<path ref={x => { this.face.rd1 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M30.0576 7.36328L27 4.48535" stroke="#764A00" strokeWidth="2"/>
+<path ref={x => { this.face.rd2 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M32.2995 4.86709L30.818 2.07324" stroke="#764A00" strokeWidth="2"/>
+<path ref={x => { this.face.rd3 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M35.5047 4.06897L34.7419 1" stroke="#764A00" strokeWidth="2"/>
+</svg> 
               </div>
               <div className="text">
-                <DatePicker
-                  {...ReactDatePickerProps}
-                  ref={c => (this._calendar = c)}
-                  selected={taskDate}
-                  onChange={x => this.saveDateChanged(x)}
-                  customInput={<div className="hiddenItem"></div>}
-                  showWeekNumbers
-                />
-                <div onDoubleClick={() => this._calendar.setOpen(true)}>
-                  {isDate(data.taskDate)
-                    ? data.taskDate.getMonth() +
-                    1 +
-                    "/" +
-                    data.taskDate.getDate()
-                    : ""}
-                </div>
-                {isTextEdit ? (
+              {isTextEdit ? (
                   <input
                     onChange={e =>
                       this.setState({
@@ -360,10 +358,28 @@ export class TaskItem extends Component {
                     onKeyDown={this.textKeyDown}
                   />
                 ) : (
-                    <div onDoubleClick={this.textDoubleClick}>
-                      {data.taskText}
-                    </div>
-                  )}
+                  <div onDoubleClick={this.textDoubleClick}>
+                    {data.taskText}
+                  </div>
+                )}
+                <DatePicker
+                  {...ReactDatePickerProps}
+                  ref={c => (this._calendar = c)}
+                  selected={taskDate}
+                  onChange={x => this.saveDateChanged(x)}
+                  customInput={<div className="hiddenItem"></div>}
+                  showWeekNumbers
+                />
+                 {isDate(data.taskDate) &&<div className='thedate' onDoubleClick={() => this._calendar.setOpen(true)}>
+                {
+                    data.taskDate.getMonth() +
+                    1 +
+                    "/" +
+                    data.taskDate.getDate()
+                   
+                }
+                </div>}
+           
               </div>
               {data.detail !== "" && (
                 <div
@@ -373,7 +389,7 @@ export class TaskItem extends Component {
                   onClick={this.detailClick}
                   className="detailBox"
                 >
-                  <Down viewBox="0 0 15 15" />
+                  <Down />
                 </div>
               )}
             </div>

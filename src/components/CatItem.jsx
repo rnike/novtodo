@@ -66,20 +66,15 @@ export class CatItem extends Component {
     const { data } = this.props;
 
     this.props.enterCat(data);
-
-    // gsap.to(this.props.selector.index, 0.5, {
-    //     opacity: 0,
-    //     x: -80,
-    //     onComplete: () => {
-    //         this.props.enterCat(data);
-    //     }
-    // });
-    // this.props.SelectCat(data);
   }
   render() {
     const { provided, data } = this.props;
     return (
-      <ContextMenuTrigger holdToDisplay={1500} id="cc" collect={() => ({ catItem: this })}>
+      <ContextMenuTrigger
+        holdToDisplay={1500}
+        id="cc"
+        collect={() => ({ catItem: this })}
+      >
         <div
           className="CatItem"
           ref={e => {
@@ -91,12 +86,7 @@ export class CatItem extends Component {
           <NavLink to="/Cat" className="content" onClick={this.CatClicked}>
             <h2>{data.catname}</h2>
           </NavLink>
-          <div
-            className="handle"
-            {...provided.dragHandleProps}
-            //isdragging={snapshot.isDragging && !snapshot.isDropAnimating}
-            // style={getStyle(provided.draggableProps.style, snapshot)}
-          >
+          <div className="handle" {...provided.dragHandleProps}>
             <Handle />
           </div>
         </div>

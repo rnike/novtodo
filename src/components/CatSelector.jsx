@@ -26,7 +26,6 @@ export class CatSelector extends Component {
     this.timeLine = gsap.timeline();
     this.aniControl = csAni.upToDown;
     this.aniIndex = 0;
-
   }
 
   AddClicked() {
@@ -69,19 +68,7 @@ export class CatSelector extends Component {
             duration: 1
           }
         )
-      );
-      // this.timeLine.add(
-      //     gsap.fromTo(
-      //         this.list,
-      //         {
-      //             y:1000,
-      //         },
-      //         {
-      //             y:0,
-      //             duration: 1
-      //         }
-      //     )
-      // );
+      ); 
     }
   }
   componentWillUnmount() {
@@ -100,11 +87,6 @@ export class CatSelector extends Component {
   }
   render() {
     const { isLoading, CatData, isBusy } = this.props;
-    console.log('CatData',CatData);
-
-    // if (isLoading) {
-    //     return <div>loading</div>;
-    // }
     return (
       <div
         ref={x => (this.index = x)}
@@ -114,14 +96,12 @@ export class CatSelector extends Component {
       >
         <nav className="head" ref={x => (this.nav = x)}>
           <h1>NOVTODO</h1>
-          <div className="iconButton center" onClick={this.AddClicked}>
-            <Add />
-          </div>
-          { !window.demo && (
-                        <div className="logout" onClick={axiosLogout}>
-                            Logout
-                        </div>
-                    )}
+          <Add className="iconButton center" onClick={this.AddClicked} />
+          {!window.demo && (
+            <div className="logout" onClick={axiosLogout}>
+              Logout
+            </div>
+          )}
         </nav>
         <DragDropContext
           onBeforeDragStart={this.onDragStart}
@@ -138,14 +118,12 @@ export class CatSelector extends Component {
                 // {...provided.droppableProps}
                 // style={getListStyle(snapshot.isDraggingOver)}
               >
-                {
-                
-                Map(CatData)
+                {Map(CatData)
                   .sortBy(x => x.order)
                   .valueSeq()
                   .map((cat, i) => {
                     console.log(cat);
-                    
+
                     const keyS = cat.id.toString();
                     return (
                       <Draggable key={keyS} draggableId={keyS} index={i}>
@@ -170,7 +148,7 @@ export class CatSelector extends Component {
         <ContextMenu id="cc">
           <MenuItem onClick={this.deleteClick}>Delete</MenuItem>
         </ContextMenu>
-        { window.demo && (
+        {window.demo && (
           <div className="demo">
             <h2>This is a demo page.</h2>
             <Login />

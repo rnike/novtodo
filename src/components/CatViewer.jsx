@@ -21,6 +21,7 @@ import { ContextMenu, MenuItem } from "react-contextmenu";
 import { NavLink } from "react-router-dom";
 import { csAni } from "../gsapControl";
 import Login, { axiosLogout } from "../login/Login";
+import { ReactComponent as DontShow } from "../svg/dontshow.svg";
 
 export class CatViewer extends Component {
   constructor(props) {
@@ -222,7 +223,8 @@ export class CatViewer extends Component {
             className="iconButton centerRight text"
             onClick={() => this.props.HideCheckedToggle()}
           >
-            {hideChecked ? "ShowChecked" : "HideChecked"}
+            {hideChecked ? "Show" : "Hide"}
+            <DontShow style={{width:30 ,marginLeft:10}}/>
           </div>
           {!window.demo && (
             <div className="logout" onClick={axiosLogout}>

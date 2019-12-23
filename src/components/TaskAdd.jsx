@@ -164,7 +164,7 @@ class TaskAdd extends React.Component {
                 <Cross
                   onClick={() => this.setState({ isDate: false })}
                   className="iconButton cross"
-                  viewBox="0,0,30,30"
+                  viewBox="0,0,30,30" 
                 />
               )}
             </div>
@@ -198,8 +198,8 @@ class TaskAdd extends React.Component {
             </div>
           </div>
           <div className="footer">
-            <Circle onClick={this.newTask} className="iconButton" />
-            <Cross onClick={this.close} className="iconButton" />
+            <Circle onClick={this.newTask} className="iconButton circle" />
+            <Cross onClick={this.close} className="iconButton cross" />
           </div>
         </div>
       </div>
