@@ -198,7 +198,7 @@ class TaskAdd extends React.Component {
             </div>
           </div>
           <div className="footer">
-            <Circle onClick={this.newTask} className="iconButton circle" />
+            <Circle onClick={this.newTask} style={{fill:'#76b3a6'}} className="iconButton circle" />
             <Cross onClick={this.close} className="iconButton cross" />
           </div>
         </div>

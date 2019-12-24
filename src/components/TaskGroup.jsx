@@ -132,7 +132,6 @@ export class TaskGroup extends Component {
           }}
           {...provided.draggableProps}
         >
-          <GroupHead className="bg" />
           <div className="title">
             <div style={{width:20,height:10}}></div>  
             <div
@@ -151,15 +150,14 @@ export class TaskGroup extends Component {
                   onBlur={this.titleBlur}
                 />
               ) : (
-                <h3>{data.groupName}</h3>
+                <div className='groupNameText'>{data.groupName}</div>
               )}
             </div>
             <div className="iconPanel">
               <Add 
                 onClick={this.addClick}
                 viewBox="0,0,30,30"
-                className="icon"
-                fill='#764a00'
+                className="icon" 
               />
             </div>
           </div>

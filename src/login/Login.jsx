@@ -4,6 +4,7 @@ import gsap from "gsap";
 import axios from "axios";
 export const axiosLogout = async () => {
     localStorage.removeItem('usertkn');
+    sessionStorage.removeItem('usertkn');
     window.demo = true;
     axios.defaults.headers = undefined;
     window.location.reload();
@@ -21,18 +22,20 @@ export const axiosLogin = async (email, pwd, remember) => {
 
         if (data.jwt) {
             //success
-            const stor = JSON.stringify(remember ? {
+
+            const stor = JSON.stringify({
                 email: email,
                 password: pwd,
                 tkn: data.jwt,
-                time: new Date()
-            } : {
-                    tkn: data.jwt,
-                    time: new Date()
-                })
-            localStorage.setItem('usertkn', stor);
+                time: new Date().getTime(),
+                remember: remember
+            })
+            SetToken(remember, stor);
             window.demo = false;
-            axios.defaults.headers = { 'Authorization': "bearer " + data.jwt };
+            axios.defaults.headers = {
+                'Authorization': "bearer " + data.jwt,
+                'Content-Type': 'application/json'
+            };
             window.location.reload();
             return {
 
@@ -44,6 +47,97 @@ export const axiosLogin = async (email, pwd, remember) => {
             }
         }
         return response.isLogin;
+    } catch (error) {
+        return {
+            err: error
+        }
+    }
+}
+export const RefreshTokenMethod = async () => {
+    if (!window.demo) {
+        const locStor = JSON.parse(localStorage.getItem('usertkn'));
+        const sessStor = JSON.parse(sessionStorage.getItem('usertkn'));
+        if (sessStor) {
+            const { email, password, remember, time } = sessStor;
+            if (time) {
+                var dif = (new Date().getTime() - time) / 1000;
+                if (dif > window.tknexpire - 20) {
+                    const { err } = await RefreshToken(email, password, remember);
+                    if (!err) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return true;
+                }
+            }
+        } else if (locStor) {
+            const { email, password, remember, time } = locStor;
+            if (time) {
+                var dif = (new Date().getTime() - time) / 1000;
+                if (dif > window.tknexpire - 20) {
+                    const { err } = await RefreshToken(email, password, remember);
+                    if (!err) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return true;
+                }
+
+            }
+        } else {
+        }
+        return false;
+    }
+    return true;
+}
+export const RefreshTokenIfNeeds = async () => {
+    if (!await RefreshTokenMethod()) {
+        axiosLogout();
+        return false;
+    }
+    return true;
+}
+const SetToken = (remember, data) => {
+    if (remember) {
+        localStorage.setItem('usertkn', data);
+    } else {
+        sessionStorage.setItem('usertkn', data);
+    }
+}
+const RefreshToken = async (email, pwd, remember) => {
+    try {
+        var response = await axios.post(window.ip + 'login', {
+            auth: {
+                email: email,
+                password: pwd,
+            }
+        });
+        const { data } = response;
+        if (data.jwt) {
+            //success
+            const stor = JSON.stringify({
+                email: email,
+                password: pwd,
+                tkn: data.jwt,
+                time: new Date().getTime(),
+                remember: remember
+            })
+            SetToken(remember, stor);
+            window.demo = false;
+            axios.defaults.headers = {
+                'Authorization': "bearer " + data.jwt,
+                'Content-Type': 'application/json'
+            };
+            return {}
+        } else {
+            return {
+                err: 'err'
+            }
+        }
     } catch (error) {
         return {
             err: error
@@ -196,7 +290,6 @@ export default class Login extends Component {
         if (loading) return;
         this.setState({ loading: true });
         const result = await axiosLogin(email, pwd, remember);
-        console.log('result', result);
 
         if (result.err) {
             this.setState({
@@ -212,13 +305,12 @@ export default class Login extends Component {
         axios
             .get("checkLogin")
             .then(response => {
-                console.log(response.data);
             })
             .catch(error => {
                 console.log(`An Error Occured! ${error}`);
             });
     }
-    regMethod() {
+    async regMethod() {
         const {
             regpwdc,
             regpwd,
@@ -248,51 +340,33 @@ export default class Login extends Component {
             this.setState({ regMsg: "Confirm password incorrect." });
             return;
         }
-
         this.setState({ loading: true });
-        var formData = new FormData();
-        formData.append("name", regname);
-        formData.append("email", regemail);
-        formData.append("password", regpwd);
-        formData.append("password_confirmation", regpwdc);
 
-        const data = {
-            name: regname,
+        const sendData = {
+            username: regname,
             email: regemail,
             password: regpwd,
             password_confirmation: regpwdc,
         }
-        axios
-            .post(window.ip + 'register', data)
-            .then(response => {
-                if (response.data) {
-                    const { data } = response;
-                    if (data.err) {
-                        console.log(data);
-                        this.setState({
-                            regMsg: data.err,
-                            loading: false
-                        });
-                    } else {
-                        if (data.message) {
-                            console.log('success', data.message);
-                        } else {
-                            this.setState({
-                                regMsg: "error",
-                                loading: false
-                            });
-                        }
-                    }
-                }
-                console.log("response", response);
-            })
-            .catch(error => {
+        const response = await axios.post(window.ip + 'register', sendData);
+        if (response.data) {
+            const { data } = response;
+            if (data.err) {
                 this.setState({
-                    regMsg: "Connection Error",
+                    regMsg: data.err,
                     loading: false
                 });
-                console.log(`An Error Occured! ${error}`);
-            });
+            } else {
+                if (data.message === 'success') {
+                    await axiosLogin(sendData.email, sendData.password, false);
+                } else {
+                    this.setState({
+                        regMsg: "error",
+                        loading: false
+                    });
+                }
+            }
+        }
     }
     render() {
         const {

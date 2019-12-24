@@ -184,7 +184,6 @@ export class TaskItem extends Component {
         var minHeight = 50;
         var maxHeight = 200;
         var height = this.detailText.offsetHeight+20;
-        console.log(height);
         gsap.to(this.detail, 0.3, {
           height:
             height < minHeight
@@ -315,7 +314,6 @@ export class TaskItem extends Component {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <TaskBg className="bg" />
           <div className="s1">
             <div className="content">
               <div onClick={this.onClicked} onMouseEnter={()=>{
@@ -325,26 +323,26 @@ export class TaskItem extends Component {
                 this.faceWiggle.pause(0);
               }} className="checkBox">
               <svg className="icon" ref={(x)=>this.faceIcon = x} width="35" height="32" viewBox="0 0 45 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path ref={x => { this.face.l1 = x; }} strokeDasharray='60' strokeDashoffset='0'  d="M5.8842 16.9021L7.65271 13.0938" stroke="#764A00" strokeWidth="2"/>
-<path ref={x => { this.face.l2 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M11.5159 17.3885L11.3334 14.2314" stroke="#764A00" strokeWidth="2"/>
-<path ref={x => { this.face.l3 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M16.774 15.6965L15.1841 12.9629" stroke="#764A00" strokeWidth="2"/>
-<path ref={x => { this.face.r1 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M32.3781 16.9021L34.1466 13.0938" stroke="#764A00" strokeWidth="2"/>
-<path ref={x => { this.face.r2 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M38.0098 17.3885L37.8273 14.2314" stroke="#764A00" strokeWidth="2"/>
-<path ref={x => { this.face.r3 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M43.2679 15.6965L41.678 12.9629" stroke="#764A00" strokeWidth="2"/>
-<path ref={x => { this.face.ld = x; }} strokeDasharray='60' strokeDashoffset='0' d="M3 9C3 9.5 4.74845 14 10.5 14C16.2516 14 18 9.5 18 9" stroke="#764A00" strokeWidth="2"/>
-<path ref={x => { this.face.rd = x; }} strokeDasharray='60' strokeDashoffset='0' d="M29 9C29 9.5 30.7484 14 36.5 14C42.2516 14 44 9.5 44 9" stroke="#764A00" strokeWidth="2"/>
-<path  d="M21.5923 15.3916L25.9019 16.7529L23.5404 20.6465" stroke="#764A00" strokeWidth="2"/>
-<path d="M16.3713 23.8848C17.8707 24.9397 21.8638 28.4841 28.3798 27.6469" stroke="#764A00" strokeWidth="2"/>
-<path ref={x => { this.face.lu = x; }} strokeDasharray='60' strokeDashoffset='0' d="M18 9.00003C18 8 16.2516 3.99999 10.5 3.99999C4.74845 3.99999 3 8 3 9.00003" stroke="#764A00" strokeWidth="2"/>
-<path ref={x => { this.face.ru = x; }} strokeDasharray='60' strokeDashoffset='0' d="M44 9.00003C44 8 42.2516 3.99999 36.5 3.99999C30.7484 3.99999 29 8 29 9.00003" stroke="#764A00" strokeWidth="2"/>
-<path ref={x => { this.face.ld1 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M4.05762 7.36328L1 4.48535" stroke="#764A00" strokeWidth="2"/>
-<path ref={x => { this.face.ld2 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M6.29949 4.86709L4.81799 2.07324" stroke="#764A00" strokeWidth="2"/>
-<path ref={x => { this.face.ld3 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M9.50473 4.06897L8.74194 1" stroke="#764A00" strokeWidth="2"/> 
-<ellipse ref={x => { this.face.lc = x; }} cx="10.0593" cy="9.18936" rx="2.05935" ry="2.18936" fill="#764A00"/>
-<ellipse ref={x => { this.face.rc = x; }} cx="36.0593" cy="9.18936" rx="2.05935" ry="2.18936" fill="#764A00"/> 
-<path ref={x => { this.face.rd1 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M30.0576 7.36328L27 4.48535" stroke="#764A00" strokeWidth="2"/>
-<path ref={x => { this.face.rd2 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M32.2995 4.86709L30.818 2.07324" stroke="#764A00" strokeWidth="2"/>
-<path ref={x => { this.face.rd3 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M35.5047 4.06897L34.7419 1" stroke="#764A00" strokeWidth="2"/>
+<path ref={x => { this.face.l1 = x; }} strokeDasharray='60' strokeDashoffset='0'  d="M5.8842 16.9021L7.65271 13.0938" stroke="#76b3a6" strokeWidth="2"/>
+<path ref={x => { this.face.l2 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M11.5159 17.3885L11.3334 14.2314" stroke="#76b3a6" strokeWidth="2"/>
+<path ref={x => { this.face.l3 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M16.774 15.6965L15.1841 12.9629"  stroke="#76b3a6" strokeWidth="2"/>
+<path ref={x => { this.face.r1 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M32.3781 16.9021L34.1466 13.0938" stroke="#76b3a6" strokeWidth="2"/>
+<path ref={x => { this.face.r2 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M38.0098 17.3885L37.8273 14.2314" stroke="#76b3a6" strokeWidth="2"/>
+<path ref={x => { this.face.r3 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M43.2679 15.6965L41.678 12.9629"  stroke="#76b3a6" strokeWidth="2"/>
+<path ref={x => { this.face.ld = x; }} strokeDasharray='60' strokeDashoffset='0' d="M3 9C3 9.5 4.74845 14 10.5 14C16.2516 14 18 9.5 18 9" stroke="#76b3a6" strokeWidth="2"/>
+<path ref={x => { this.face.rd = x; }} strokeDasharray='60' strokeDashoffset='0' d="M29 9C29 9.5 30.7484 14 36.5 14C42.2516 14 44 9.5 44 9" stroke="#76b3a6" strokeWidth="2"/>
+<path  d="M21.5923 15.3916L25.9019 16.7529L23.5404 20.6465" stroke="#76b3a6" strokeWidth="2"/>
+<path d="M16.3713 23.8848C17.8707 24.9397 21.8638 28.4841 28.3798 27.6469" stroke="#76b3a6" strokeWidth="2"/>
+<path ref={x => { this.face.lu = x; }} strokeDasharray='60' strokeDashoffset='0' d="M18 9.00003C18 8 16.2516 3.99999 10.5 3.99999C4.74845 3.99999 3 8 3 9.00003" stroke="#76b3a6" strokeWidth="2"/>
+<path ref={x => { this.face.ru = x; }} strokeDasharray='60' strokeDashoffset='0' d="M44 9.00003C44 8 42.2516 3.99999 36.5 3.99999C30.7484 3.99999 29 8 29 9.00003" stroke="#76b3a6" strokeWidth="2"/>
+<path ref={x => { this.face.ld1 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M4.05762 7.36328L1 4.48535" stroke="#76b3a6" strokeWidth="2"/>
+<path ref={x => { this.face.ld2 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M6.29949 4.86709L4.81799 2.07324" stroke="#76b3a6" strokeWidth="2"/>
+<path ref={x => { this.face.ld3 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M9.50473 4.06897L8.74194 1" stroke="#76b3a6" strokeWidth="2"/> 
+<ellipse ref={x => { this.face.lc = x; }} cx="10.0593" cy="9.18936" rx="2.05935" ry="2.18936" fill="#76b3a6"/>
+<ellipse ref={x => { this.face.rc = x; }} cx="36.0593" cy="9.18936" rx="2.05935" ry="2.18936" fill="#76b3a6"/> 
+<path ref={x => { this.face.rd1 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M30.0576 7.36328L27 4.48535" stroke="#76b3a6" strokeWidth="2"/>
+<path ref={x => { this.face.rd2 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M32.2995 4.86709L30.818 2.07324" stroke="#76b3a6" strokeWidth="2"/>
+<path ref={x => { this.face.rd3 = x; }} strokeDasharray='60' strokeDashoffset='0' d="M35.5047 4.06897L34.7419 1" stroke="#76b3a6" strokeWidth="2"/>
 </svg> 
               </div>
               <div className="text">

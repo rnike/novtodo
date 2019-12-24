@@ -1,9 +1,10 @@
 // // Font
 @import url("https://fonts.googleapis.com/css?family=Ubuntu&display=swap");
 
-$bg-color: #fff7e4;
-$lightdark: #b49154;
-$dark: #764a00;
+$bg-color: #76b3a6;
+$lightdark: #8cd6c6;
+$dark: #2a6155;
+$nav: #76b3a6;
 .demo {
   position: fixed;
   right: 0;
@@ -22,8 +23,10 @@ $dark: #764a00;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px dotted $dark; 
+  border-radius: 10px;
   margin: 5px;
-  background: rgba(255, 255, 255, 0.53); 
+  background: rgba(255, 255, 255, 0.86);
   user-select: none;
   cursor: pointer;
   .handle {
@@ -65,25 +68,31 @@ $dark: #764a00;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  margin: 10px;
+  margin: 20px 0px 10px 20px;
   user-select: none;
   position: relative;
+
   .title {
-    width: 311px;
-    height: 86px;
+    border: 2px solid white;
+    // background: #ffffff8a;
+    width: 307px;
+    height: 84px;
     position: relative;
-    display: flex; 
+    display: flex;
     align-items: center;
-    margin: 0 0 -7px 0;
-    border-radius: 20px 20px 0px 0px;
+    margin: 0 0 -1px 0;
+    border-radius: 10px 10px 0px 0px;
     .groupName {
       outline: none;
-      width: 200px;
-      h2 {
-        margin: 1rem 50px;
+      width: 255px;
+      color: white;
+      .groupNameText {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+        margin: 1rem 40px;
       }
       .titleInput {
-        color:$dark;
+        color: $dark;
         outline: none;
         display: block;
         font-size: 1.5em;
@@ -139,10 +148,12 @@ div[disabled] {
   opacity: 0.7;
 }
 .TaskItem {
+  background: #ffffff;
   overflow: hidden;
   outline: none;
   width: 311px;
-  margin: 0 0 -5px 0;
+  margin: 0 0 -1px 0;
+  border-top: 1px solid $bg-color;
   .s1 {
     width: 311px;
     height: 86px;
@@ -154,7 +165,6 @@ div[disabled] {
       height: 10px;
     }
     .content {
-      width: 85%;
       flex: 1;
       display: flex;
       align-items: center;
@@ -164,7 +174,7 @@ div[disabled] {
         cursor: pointer;
         width: 60px;
         height: 60px;
-        .icon { 
+        .icon {
           display: block;
           margin: auto;
         }
@@ -178,38 +188,42 @@ div[disabled] {
         .react-datepicker-wrapper {
           position: absolute;
         }
-        .thedate{
+        .thedate {
           font-size: 12px;
           padding-top: 5px;
         }
       }
       .detailBox {
         cursor: pointer;
-        width: 12px;
+        width: 40px;
         height: 40px;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: center; 
+        svg {
+          fill: $dark;
+          width: 12px;
+          height: 40px;
+        }
       }
     }
   }
   .s2 {
-    background: white;
-    width: 280px; 
     margin-top: -5px;
     height: 0;
-    box-sizing: border-box; 
-    box-shadow: inset 0 4px 8px -6px $lightdark;
-    
-    .detail {white-space:pre;
+    box-sizing: border-box;
+    box-shadow: inset 0 4px 8px -6px $dark;
+
+    .detail {
+      white-space: pre;
       word-wrap: break-word;
       overflow: auto;
       // width: 260px;
       padding-left: 65px;
-      padding-top:10px;
+      padding-top: 10px;
       // max-height: 31/40 * 100%;
       // margin: 20px 20px 25px 20px;
-    } 
+    }
   }
 }
 .bg {
@@ -225,7 +239,7 @@ div[disabled] {
   background-color: rgba(0, 0, 0, 0.3);
   padding: 50px;
   .modal {
-    background-color: white;
+    background-color: #76b3a6;
     border-radius: 25px;
     max-width: 500px;
     margin: 0px auto;
@@ -236,7 +250,7 @@ div[disabled] {
     flex-direction: column;
     .header {
       .iconButton {
-        fill: $dark;
+        fill: white;
         width: 30px;
         height: 30px;
       }
@@ -257,6 +271,7 @@ div[disabled] {
       display: flex;
       flex-direction: column;
       input {
+        color: $dark;
         outline: none;
         padding: 10px;
         font-size: 1.5rem;
@@ -264,6 +279,7 @@ div[disabled] {
         border: 3px solid $dark;
       }
       textarea {
+        color: $dark;
         outline: none;
         font-size: 1.5rem;
         border-radius: 5px;
@@ -284,18 +300,12 @@ div[disabled] {
       height: 60px;
       align-items: center;
       .iconButton {
-        margin: 50px;
+        margin: 0 50px;
         &.cross {
-          fill: $dark;
-          &:hover {
-            fill: #c59849;
-          }
+          fill: $dark; 
         }
         &.circle {
           stroke: $dark;
-          &:hover {
-            stroke: #c59849;
-          }
         }
       }
     }
@@ -310,15 +320,16 @@ div[disabled] {
 .head {
   height: 50px;
   color: #ffffff;
-  background: #764a00;
+  background: $nav;
   display: flex;
-  h1 {
-    margin: 10px;
-    margin-left: 30px;
+  .text {
+    margin: auto 30px;
     user-select: none;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
   }
   .titleInput {
-    color:$dark;
+    color: $dark;
     outline: none;
     font-size: 1.5rem;
     margin-left: 30px;
@@ -343,37 +354,38 @@ body {
 .iconButton {
   outline: none;
   cursor: pointer;
-  width: 25px;
-  height: 25px; 
+  width: 20px;
+  height: 20px;
   user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  align-self: center;
+  margin-left: 10px;
   fill: #ffffff;
-  margin: 10px;
   &.right {
     position: absolute;
     right: 0;
     top: 0;
-    margin: 10px 0;
+    margin-left: 0;
   }
   &.center {
-    position: absolute;
+    position: sticky;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    margin: 10px 0;
+    margin-left: 0;
   }
   &.centerRight {
-    position: absolute;
+    position: sticky;
     top: 0;
     left: 70%;
     transform: translateX(-50%);
-    margin: 10px 0;
+    margin-left: 0;
   }
   &.text {
     width: auto;
-  } 
+  }
 }
 
 .hiddenItem {
@@ -450,8 +462,7 @@ body {
 .react-contextmenu-item.react-contextmenu-submenu > .react-contextmenu-item {
 }
 
-.react-contextmenu-item.react-contextmenu-submenu
-  > .react-contextmenu-item:after {
+.react-contextmenu-item.react-contextmenu-submenu > .react-contextmenu-item:after {
   content: "▶";
   display: inline-block;
   position: absolute;

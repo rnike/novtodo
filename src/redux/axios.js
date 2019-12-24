@@ -1,8 +1,15 @@
 import { fakeCats } from "../demo";
 import { Map, List } from "immutable";
 import axios from "axios";
-// Delay
+import { RefreshTokenIfNeeds } from '../login/Login'
 
+const axiosCall = async (url,data) => {
+  if (!await RefreshTokenIfNeeds()) return;
+  if(data){
+    return await axios.post(url,data);
+  }
+  return await axios.post(url);
+}
 export const axiosFetchCats = async () => {
   let data;
   if (window.demo) {
@@ -10,7 +17,7 @@ export const axiosFetchCats = async () => {
   } else {
     try {
 
-      var result = await axios.post(window.ip + `get_cats`);
+      var result = await axiosCall(window.ip + `get_cats`);
 
       if (result.status === 200) {
         data = result.data;
@@ -25,8 +32,8 @@ export const axiosFetchCatContent = async cat => {
   let data;
   if (window.demo) {
   } else {
-    try {
-      var result = await axios.post(window.ip + `readCat/${cat.id}`);
+    try { 
+      var result =await axiosCall(window.ip + `readCat/${cat.id}`);
       if (result.status === 200) {
         data = result.data;
       }
@@ -91,8 +98,8 @@ export const axiosAddCat = async state => {
       })
       .toJS();
   } else {
-    try {
-      var result = await axios.post(window.ip + `add/cat`);
+    try { 
+      var result = await axiosCall(window.ip + `add/cat`);
       if (result.status === 200) {
         const newCat = result.data;
         return Map(state.Cat.present)
@@ -116,8 +123,8 @@ export const axiosAddCat = async state => {
 export const axiosUpdateCatOrder = async newOrder => {
   if (window.demo) {
   } else {
-    try {
-      var result = await axios.post(window.ip + `reorder/cat`, {
+    try { 
+      var result = await axiosCall(window.ip + `reorder/cat`, {
         order: newOrder
       });
     } catch (e) {
@@ -129,8 +136,8 @@ export const axiosUpdateCatOrder = async newOrder => {
 export const axiosUpdate = async (type, id, column, value) => {
   if (window.demo) {
   } else {
-    try {
-      var result = await axios.post(window.ip + `update/${type}`, {
+    try { 
+      var result = await axiosCall(window.ip + `update/${type}`, {
         id,
         column,
         value
@@ -145,8 +152,8 @@ export const axiosUpdate = async (type, id, column, value) => {
 export const axiosUpdateFull = async (type, value) => {
   if (window.demo) {
   } else {
-    try {
-      var result = await axios.post(window.ip + `updateFull/${type}`, {
+    try { 
+      var result = await axiosCall(window.ip + `updateFull/${type}`, {
         ...value
       });
       if (result.status === 200) {
@@ -159,8 +166,8 @@ export const axiosUpdateFull = async (type, value) => {
 export const axiosRemove = async (type, id) => {
   if (window.demo) {
   } else {
-    try {
-      var result = await axios.post(window.ip + `remove/${type}`, { id });
+    try { 
+      var result = await axiosCall(window.ip + `remove/${type}`, { id });
       if (result.status === 200) {
       }
     } catch (e) {
@@ -187,8 +194,8 @@ export const axiosAddGroup = async (cat, catID, state) => {
       .toJS();
     return data;
   } else {
-    try {
-      var result = await axios.post(window.ip + `add/group`, {
+    try { 
+      var result = await axiosCall(window.ip + `add/group`, {
         cat_id: catID
       });
       if (result.status === 200) {
@@ -207,8 +214,8 @@ export const axiosAddGroup = async (cat, catID, state) => {
 export const axiosReorderGroup = async newOrders => {
   if (window.demo) {
   } else {
-    try {
-      var result = await axios.post(window.ip + `reorder/group`, {
+    try { 
+      var result = await axiosCall(window.ip + `reorder/group`, {
         order: newOrders
       });
       if (result.status === 200) {
@@ -243,8 +250,8 @@ export const axiosAddTask = async (state, cat, groupID, task) => {
       order: maxOrder
     };
   } else {
-    try {
-      var result = await axios.post(window.ip + `add/task`, {
+    try { 
+      var result =await axiosCall(window.ip + `add/task`, {
         catid: cat.id,
         groupid: parseInt(groupID),
         task: task
@@ -262,8 +269,8 @@ export const axiosReorderTask = async (orders, groups) => {
   if (window.demo) {
     console.log("update");
   } else {
-    try {
-      var result = await axios.post(window.ip + `reorder/task`, {
+    try { 
+      var result =await axiosCall(window.ip + `reorder/task`, {
         order: orders,
         groups: groups
       });

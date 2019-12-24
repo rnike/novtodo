@@ -95,7 +95,7 @@ export class CatSelector extends Component {
         style={{ opacity: isLoading ? 0.5 : 1 }}
       >
         <nav className="head" ref={x => (this.nav = x)}>
-          <h1>NOVTODO</h1>
+          <div className='text'>NOVTODO</div>
           <Add className="iconButton center" onClick={this.AddClicked} />
           {!window.demo && (
             <div className="logout" onClick={axiosLogout}>
@@ -122,7 +122,6 @@ export class CatSelector extends Component {
                   .sortBy(x => x.order)
                   .valueSeq()
                   .map((cat, i) => {
-                    console.log(cat);
 
                     const keyS = cat.id.toString();
                     return (

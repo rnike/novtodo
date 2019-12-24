@@ -211,7 +211,7 @@ export class CatViewer extends Component {
               onBlur={this.ComfirmTitleEdit}
             />
           ) : (
-              <h1 onDoubleClick={this.StartEdit}>{cat && cat.catname}</h1>
+              <div className='text' onDoubleClick={this.StartEdit}>{cat && cat.catname}</div>
             )}
           {!this.state.titleEditing && (
             <div className="iconButton center" onClick={this.AddClicked}>
