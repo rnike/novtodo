@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "NOVTODO",
+  "name": "To do app frontend made with react+redux",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",

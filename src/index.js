@@ -11,7 +11,7 @@ import "./app.scss";
 import axios from 'axios'
 import {RefreshTokenMethod}from './login/Login';
 store.subscribe(() => Listener(store));
-window.ip = 'http://novon.cc:3001/';
+window.ip = 'https://novon.cc:3001/';
 window.tknexpire= 600;
 const tkn = JSON.parse(localStorage.getItem('usertkn'));
 const stkn = JSON.parse(sessionStorage.getItem('usertkn'));

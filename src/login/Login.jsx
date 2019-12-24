@@ -32,10 +32,7 @@ export const axiosLogin = async (email, pwd, remember) => {
             })
             SetToken(remember, stor);
             window.demo = false;
-            axios.defaults.headers = {
-                'Authorization': "bearer " + data.jwt,
-                'Content-Type': 'application/json'
-            };
+            setAxiosHeader(data.jwt);
             window.location.reload();
             return {
 
@@ -108,6 +105,13 @@ const SetToken = (remember, data) => {
         sessionStorage.setItem('usertkn', data);
     }
 }
+const setAxiosHeader = (jwt)=>{
+    axios.defaults.headers = {
+        'Authorization': `bearer ${jwt}`,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+    };
+}
 const RefreshToken = async (email, pwd, remember) => {
     try {
         var response = await axios.post(window.ip + 'login', {
@@ -128,10 +132,7 @@ const RefreshToken = async (email, pwd, remember) => {
             })
             SetToken(remember, stor);
             window.demo = false;
-            axios.defaults.headers = {
-                'Authorization': "bearer " + data.jwt,
-                'Content-Type': 'application/json'
-            };
+            setAxiosHeader(data.jwt);
             return {}
         } else {
             return {
