@@ -183,14 +183,17 @@ export class TaskItem extends Component {
       if (this.state.isOpened) {
         var minHeight = 50;
         var maxHeight = 200;
-        var height = this.detailText.offsetHeight;
+        var height = this.detailText.offsetHeight+20;
+        console.log(height);
         gsap.to(this.detail, 0.3, {
           height:
             height < minHeight
               ? minHeight
               : height > maxHeight
               ? maxHeight
-              : height
+              : height,
+              padding:5,
+              borderTopWidth:2, 
         });
         gsap.fromTo(
           this.detailText,
@@ -209,7 +212,9 @@ export class TaskItem extends Component {
         });
       } else {
         gsap.to(this.detail, 0.3, {
-          height: 0
+          height: 0,
+          padding:0,
+          borderTopWidth:0, 
         });
         gsap.fromTo(
           this.detailText,
@@ -403,10 +408,8 @@ export class TaskItem extends Component {
             <Scrollbars
               style={{
                 wordWrap: "break-word",
-                overflowX: "hidden",
-                width: "260px",
-                height: "77.5%",
-                margin: "20px 20px 25px 20px"
+                overflowX: "hidden", 
+                height: "100%", 
               }}
               autoHide
               autoHideTimeout={500}

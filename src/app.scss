@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css?family=Ubuntu&display=swap");
 
 $bg-color: #fff7e4;
+$lightdark: #b49154;
 $dark: #764a00;
 .demo {
   position: fixed;
@@ -141,7 +142,7 @@ div[disabled] {
   overflow: hidden;
   outline: none;
   width: 311px;
-  margin: 0 0 -27px 0;
+  margin: 0 0 -5px 0;
   .s1 {
     width: 311px;
     height: 86px;
@@ -161,7 +162,7 @@ div[disabled] {
         display: flex;
         box-sizing: border-box;
         cursor: pointer;
-        width: 70px;
+        width: 60px;
         height: 60px;
         .icon { 
           display: block;
@@ -172,6 +173,7 @@ div[disabled] {
         flex: 1;
         display: flex;
         flex-direction: column;
+        word-wrap: break-word;
         cursor: pointer;
         .react-datepicker-wrapper {
           position: absolute;
@@ -192,16 +194,22 @@ div[disabled] {
     }
   }
   .s2 {
-    width: 311px;
+    background: white;
+    width: 280px; 
+    margin-top: -5px;
     height: 0;
-    box-sizing: border-box;
-    .detail {
+    box-sizing: border-box; 
+    box-shadow: inset 0 4px 8px -6px $lightdark;
+    
+    .detail {white-space:pre;
       word-wrap: break-word;
       overflow: auto;
       // width: 260px;
+      padding-left: 65px;
+      padding-top:10px;
       // max-height: 31/40 * 100%;
       // margin: 20px 20px 25px 20px;
-    }
+    } 
   }
 }
 .bg {
@@ -404,7 +412,7 @@ body {
   color: $dark;
   cursor: pointer;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 3;
   padding: 3px 20px;
   text-align: inherit;
   white-space: nowrap;

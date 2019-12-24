@@ -122,7 +122,7 @@ export const fakeCats = () => ({
                 cat_id: 2,
                 group_id: 4,
                 order: 0,
-                taskText: "Apple 5",
+                taskText: "Fender Jazz Bass",
                 taskDate: {},
                 isCompleted: false,
                 detail: ""
@@ -132,7 +132,7 @@ export const fakeCats = () => ({
                 cat_id: 2,
                 group_id: 4,
                 order: 1,
-                taskText: "Banana 5",
+                taskText: "Fender Jazz Bass 2nd",
                 taskDate: {},
                 isCompleted: false,
                 detail: ""
@@ -142,7 +142,7 @@ export const fakeCats = () => ({
                 cat_id: 2,
                 group_id: 5,
                 order: 0,
-                taskText: "GT-R Black-Premium",
+                taskText: "Fender Jazz Bass 3rd",
                 taskDate: {},
                 isCompleted: false,
                 detail: ""
@@ -152,7 +152,7 @@ export const fakeCats = () => ({
                 cat_id: 2,
                 group_id: 5,
                 order: 1,
-                taskText: "Huracán Performante Spyder",
+                taskText: "Fender Jazz Bass 4th",
                 taskDate: {},
                 isCompleted: false,
                 detail: ""
@@ -169,19 +169,19 @@ export const fakeCats = () => ({
                 id: 6,
                 cat_id: 3,
                 order: 0,
-                groupName: "WEB"
+                groupName: "BASS"
             },
             "7": {
                 id: 7,
                 cat_id: 3,
                 order: 1,
-                groupName: "CODE"
+                groupName: "DEV"
             },
             "8": {
                 id: 8,
                 cat_id: 3,
                 order: 2,
-                groupName: "OS"
+                groupName: "OTHER"
             }
         },
         tasks: {
@@ -190,17 +190,17 @@ export const fakeCats = () => ({
                 cat_id: 3,
                 group_id: 6,
                 order: 0,
-                taskText: "Laravel",
+                taskText: "Slap the bass forever",
                 taskDate: {},
-                isCompleted: true,
-                detail: ""
+                isCompleted: false,
+                detail: "still doing"
             },
             "13": {
                 id: 13,
                 cat_id: 3,
                 group_id: 6,
                 order: 1,
-                taskText: "React + Redux",
+                taskText: "Slap the bass",
                 taskDate: {},
                 isCompleted: true,
                 detail: ""
@@ -210,7 +210,7 @@ export const fakeCats = () => ({
                 cat_id: 3,
                 group_id: 6,
                 order: 2,
-                taskText: " Vue.js ",
+                taskText: "Slap the bass twice",
                 taskDate: {},
                 isCompleted: true,
                 detail: ""
@@ -220,7 +220,7 @@ export const fakeCats = () => ({
                 cat_id: 3,
                 group_id: 6,
                 order: 3,
-                taskText: "gsap",
+                taskText: "Slap the bass like an expert",
                 taskDate: {},
                 isCompleted: true,
                 detail: ""
@@ -230,7 +230,7 @@ export const fakeCats = () => ({
                 cat_id: 3,
                 group_id: 6,
                 order: 4,
-                taskText: "JavaScript",
+                taskText: "Slap the bass while sleeping",
                 taskDate: {},
                 isCompleted: true,
                 detail: ""
@@ -240,7 +240,7 @@ export const fakeCats = () => ({
                 cat_id: 3,
                 group_id: 6,
                 order: 5,
-                taskText: "php",
+                taskText: "Slap the bass while driving",
                 taskDate: {},
                 isCompleted: true,
                 detail: ""
@@ -250,9 +250,9 @@ export const fakeCats = () => ({
                 cat_id: 3,
                 group_id: 7,
                 order: 0,
-                taskText: "C#",
+                taskText: "Understand how to develop an AI to develop itself.",
                 taskDate: {},
-                isCompleted: true,
+                isCompleted: false,
                 detail: ""
             },
             "19": {
@@ -260,19 +260,29 @@ export const fakeCats = () => ({
                 cat_id: 3,
                 group_id: 7,
                 order: 1,
-                taskText: "DART",
+                taskText: "Understand how to develop an AI to develop an AI to develop itself.",
                 taskDate: {},
-                isCompleted: true,
-                detail: ""
+                isCompleted: false,
+                detail: "Mind exploded"
             },
             "20": {
                 id: 20,
                 cat_id: 3,
                 group_id: 8,
                 order: 0,
-                taskText: "Linux",
+                taskText: "Math",
                 taskDate: {},
-                isCompleted: true,
+                isCompleted: false,
+                detail: ""
+            },
+            "21": {
+                id: 21,
+                cat_id: 3,
+                group_id: 8,
+                order: 1,
+                taskText: "UI design",
+                taskDate: {},
+                isCompleted: false,
                 detail: ""
             }
         }
