@@ -171,6 +171,7 @@ export class TaskGroup extends Component {
               >
                 {tasks.map((x, i) => {
                   if (hideChecked && x.isCompleted) {
+                    x.dragDroped = true;
                     return null;
                   }
                   const dID = x.id.toString();

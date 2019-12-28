@@ -130,15 +130,10 @@ export class CatViewer extends Component {
       }
       this.props.ReorderGroup(result, cat);
     } else {
-      if (
-        !destination ||
-        (source.droppableId === destination.droppableId &&
-          destination.index === source.index)
-      ) {
+      if (!destination || (source.droppableId === destination.droppableId && destination.index === source.index)) {
         // console.log("dropped outside the list or same");
         return;
-      }
-
+      } 
       this.props.ReorderTask(result, cat);
     }
   }
@@ -291,12 +286,12 @@ export class CatViewer extends Component {
           <MenuItem onClick={this.deleteGroupClick}>DeleteGroup</MenuItem>
         </ContextMenu>
         <TaskAdd />
-        {window.demo && (
+        {/* {window.demo && (
           <div className="demo">
             <h2>This is a demo page.</h2>
             <Login />
           </div>
-        )}
+        )} */}
       </div>
     );
   }

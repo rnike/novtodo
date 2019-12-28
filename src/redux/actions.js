@@ -348,15 +348,10 @@ export function CallReorderTask(result, cat) {
           }
           return x;
         })
-        .toJS();
-        console.log("orderS", orderS);
-        console.log("orderD", orderD);
+        .toJS(); 
       newOrder.push(orderS);
-      newOrder.push(orderD);
-      console.log("newOrder", newOrder);
-    }
-    console.log(newOrder, groupIds);
-
+      newOrder.push(orderD); 
+    } 
     dispatch(
       Update({
         ...Map(state)
