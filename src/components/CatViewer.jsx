@@ -149,7 +149,6 @@ export class CatViewer extends Component {
     // this.props.GroupRemove(data.groupID, cat);
   }
   MenuClicked() {
-    console.log(this.props);
     const { cat } = this.props;
 
     this.props.CloseCat(cat.id);
@@ -286,12 +285,12 @@ export class CatViewer extends Component {
           <MenuItem onClick={this.deleteGroupClick}>DeleteGroup</MenuItem>
         </ContextMenu>
         <TaskAdd />
-        {/* {window.demo && (
+        {window.demo && (
           <div className="demo">
             <h2>This is a demo page.</h2>
             <Login />
           </div>
-        )} */}
+        )}
       </div>
     );
   }

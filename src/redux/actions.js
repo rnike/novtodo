@@ -50,10 +50,8 @@ export function readCat(cat) {
 }
 const shouldFetchCatContent = cat => {
   if (!cat.groups || !cat.tasks) {
-    console.log("fetch");
     return true;
   } else {
-    console.log("dont fetch");
     return false;
   }
 };
